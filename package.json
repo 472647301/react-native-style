@@ -1,7 +1,7 @@
 {
   "name": "@byron-react-native/style",
   "version": "1.0.0",
-  "description": "",
+  "description": "React Native Style",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -9,6 +9,11 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/472647301/react-native-style.git",
+    "baseUrl": "https://github.com/472647301/react-native-style"
   },
   "author": "",
   "license": "ISC",
