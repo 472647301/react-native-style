@@ -77,24 +77,25 @@ export class StyleAdapter {
     "right",
   ];
 
-  public static setBaseSize(width: number, height: number) {
+  // 避免解构赋值丢失 this
+  public static setBaseSize = (width: number, height: number) => {
     this.baseWidth = width;
     this.baseHeight = height;
-  }
+  };
 
-  public static setAttribute(attribute: Array<keyof ViewStyle>) {
+  public static setAttribute = (attribute: Array<keyof ViewStyle>) => {
     this.attribute = attribute;
-  }
+  };
 
-  public static scaleWidth(size: number) {
+  public static scaleWidth = (size: number) => {
     return toFixed2((width / this.baseWidth) * size);
-  }
+  };
 
-  public static scaleHeight(size: number) {
+  public static scaleHeight = (size: number) => {
     return toFixed2((height / this.baseHeight) * size);
-  }
+  };
 
-  public static scaleFont(size: number) {
+  public static scaleFont = (size: number) => {
     let newSize = this.scaleWidth(size);
     if (fontScale > 1) {
       newSize = Math.ceil(newSize / fontScale);
@@ -104,12 +105,12 @@ export class StyleAdapter {
     } else {
       return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
     }
-  }
+  };
 
-  public static viewStyle(
+  public static viewStyle = (
     styles: ViewStyle,
     attribute?: Array<keyof ViewStyle>
-  ): ViewStyle {
+  ): ViewStyle => {
     const attr = attribute || this.attribute;
     for (let key of attr) {
       if (typeof styles[key] !== "number") {
@@ -121,19 +122,19 @@ export class StyleAdapter {
       styles.height = this.scaleWidth(styles.height);
     }
     return styles;
-  }
+  };
 
-  public static textStyle(styles: TextStyle): TextStyle {
+  public static textStyle = (styles: TextStyle): TextStyle => {
     if (typeof styles.fontSize === "number") {
       return { fontSize: this.scaleFont(styles.fontSize) };
     }
     return {};
-  }
+  };
 
-  public static create<T extends NamedStyles<T>>(
+  public static create = <T extends NamedStyles<T>>(
     styles: T | NamedStyles<T>,
     attribute?: Array<keyof ViewStyle>
-  ): T {
+  ): T => {
     for (let name in styles) {
       if (!isObject(styles[name])) {
         continue;
@@ -148,5 +149,5 @@ export class StyleAdapter {
       >];
     }
     return StyleSheet.create(styles);
-  }
+  };
 }
